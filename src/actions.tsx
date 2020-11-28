@@ -52,7 +52,6 @@ const addEmployee = createAsyncAction(ADD_EMPLOYEE, async (data: any) => {
 	return result;
 });
 
-
 export const UPDATE_EMPLOYEE = 'employee/update-employee';
 /*
  * Function: updateEmployees
