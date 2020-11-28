@@ -1,7 +1,6 @@
-# Arkam StatsBomb Task
+# People flow Task
 
 -   npm install
--   npm run build-server
 -   npm start
 
 ## Used libraries and tools
