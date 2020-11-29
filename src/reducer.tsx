@@ -1,67 +1,62 @@
-// import { ActionType } from 'redux-promise-middleware';
-import { FluxStandardAction, ErrorFluxStandardAction } from 'flux-standard-action';
+import { ActionType } from "redux-promise-middleware";
+import {
+  FluxStandardAction,
+  ErrorFluxStandardAction,
+} from "flux-standard-action";
 
-// import { FETCH_PASSES, ADD_PASS, FETCH_SHOTS, ADD_SHOT } from './actions';
+import { FETCH_EMPLOYEES, UPDATE_EMPLOYEE } from "./actions";
 
 export type stateType = {
-        passes: { [id: string]: any };
-        loading: boolean;
-        error: ErrorFluxStandardAction | null;
+  employees: { [id: string]: any };
+  loading: boolean;
+  error: ErrorFluxStandardAction | null;
 };
 
 const initialState: stateType = {
-        passes: {},
+  employees: {},
+  loading: false,
+  error: null,
+};
+
+const employeesReducer: any = (
+  state = initialState,
+  action: FluxStandardAction | ErrorFluxStandardAction | any
+) => {
+  switch (action.type) {
+    case `${FETCH_EMPLOYEES}_${ActionType.Pending}`:
+      return {
+        ...state,
+        loading: true,
+      };
+
+    case `${FETCH_EMPLOYEES}_${ActionType.Fulfilled}`:
+      return {
         loading: false,
-        error: null
-};
+        employees: action.payload.data,
+        error: null,
+      };
 
-const passesReducer: any = (state = initialState, action: FluxStandardAction | ErrorFluxStandardAction | any) => {
-        switch (action.type) {
-                // case `${FETCH_PASSES}_${ActionType.Pending}`:
-                //         return {
-                //                 ...state,
-                //                 loading: true
-                //         };
-
-                // case `${FETCH_PASSES}_${ActionType.Fulfilled}`:
-                //         return {
-                //                 loading: false,
-                //                 passes: action.payload,
-                //                 error: null
-                //         };
-
-                // case `${ADD_PASS}_${ActionType.Fulfilled}`: {
-                //         return {
-                //                 ...state,
-                //                 loading: false,
-                //                 passes: {
-                //                         ...state.passes,
-                //                         ...action.payload
-                //                 }
-                //         };
-                // }
-                // case `${ADD_PASS}_${ActionType.Rejected}`:
-                //         return {
-                //                 loading: false,
-                //                 passes: state.passes,
-                //                 error: action.error
-                //         };
-
-                default:
-                        return state;
-        }
-};
-
-type stateTypeShots = {
-        shots: { [id: string]: any };
-        loading: boolean;
-        error: ErrorFluxStandardAction | null;
-};
-
-const initialStateShot: stateTypeShots = {
-        shots: {},
+    case `${UPDATE_EMPLOYEE}_${ActionType.Fulfilled}`: {
+      return {
+        ...state,
         loading: false,
-        error: null
+        employees: {
+          ...state.employees,
+          ...action.payload.data,
+        },
+      };
+    }
+    case `${UPDATE_EMPLOYEE}_${ActionType.Rejected}`:
+      return {
+        loading: false,
+        employees: state.employees,
+        error: action.error,
+      };
+
+    default:
+      return state;
+  }
 };
 
-export { passesReducer };
+
+export { employeesReducer };

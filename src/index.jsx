@@ -7,12 +7,12 @@ import { createStore, applyMiddleware, combineReducers } from 'redux';
 import promiseMiddleware from 'redux-promise-middleware';
 import { composeWithDevTools } from 'redux-devtools-extension';
 
-import { passesReducer } from './reducer';
+import { employeesReducer } from './reducer';
 
 import reportWebVitals from './reportWebVitals';
 
 const composedEnhancer = composeWithDevTools(applyMiddleware(promiseMiddleware));
-const rootReducer = combineReducers({passes: passesReducer})
+const rootReducer = combineReducers({employees: employeesReducer})
 
 const store = createStore(rootReducer, {}, composedEnhancer);
 const My404Component = () => <div> not found </div>;
