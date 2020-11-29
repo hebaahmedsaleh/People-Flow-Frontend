@@ -43,12 +43,12 @@ const userRoutes = (app, fs) => {
         }, true);
     });
 
-    app.put('/employee/:id', (req, res) => {
+    app.put('/employee/update/:id', (req, res) => {
         readFile(data => {
             const newEmployeeId = Number(req.params["id"]);
             data[newEmployeeId] = {
                 ...data[newEmployeeId],
-                status: req.data.status
+                status: req.body.status
             };
             writeFile(JSON.stringify(data, null, 2), () => {
                 res.send(data[newEmployeeId]);
@@ -57,7 +57,7 @@ const userRoutes = (app, fs) => {
         true);
     });
 
-    app.post('/employee', (req, res) => {
+    app.post('/employee/create', (req, res) => {
         readFile(data => {
             const newEmployeeId = req.body.id;
             data[newEmployeeId] = req.body;

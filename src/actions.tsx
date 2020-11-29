@@ -1,4 +1,5 @@
 import { createAsyncAction } from 'redux-promise-middleware-actions';
+import { employeeProps } from './screens/employees-list';
 
 const options = {
 	'Content-Type': 'application/json',
@@ -8,7 +9,7 @@ const options = {
 	'Access-Control-Allow-Headers': 'Content-Type'
 };
 
-const apiUrl = "https://www.fakejsonapi.com/fake-api/employee/api/v1";
+const apiUrl = "http://localhost:4000/employee";
 
 export const FETCH_EMPLOYEE = 'employee/fetch';
 /*
@@ -29,7 +30,7 @@ export const FETCH_EMPLOYEES = 'employee/fetch-all';
  */
 
 const fetchEmployees = createAsyncAction(FETCH_EMPLOYEES, async () => {
-	const response = await fetch(`${apiUrl}/employees`, { headers: options });
+	const response = await fetch(apiUrl, { headers: options });
 	const result = await response.json();
 	return result;
 });
@@ -57,9 +58,9 @@ export const UPDATE_EMPLOYEE = 'employee/update-employee';
  * Function: updateEmployees
  * Description: Update Employee data
  */
-const updateEmployee = createAsyncAction(ADD_EMPLOYEE, async (id: number, data: any) => {
-	const response = await fetch(`${apiUrl}/update/${id}`, {
-		method: 'POST',
+const updateEmployee = createAsyncAction(UPDATE_EMPLOYEE, async (data: employeeProps) => {
+	const response = await fetch(`${apiUrl}/update/${data.id}`, {
+		method: 'PUT',
 		body: JSON.stringify(data),
 		headers: {
 			'Content-Type': 'application/json',

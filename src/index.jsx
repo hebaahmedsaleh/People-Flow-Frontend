@@ -9,6 +9,8 @@ import { composeWithDevTools } from 'redux-devtools-extension';
 
 import { employeesReducer } from './reducer';
 
+import { EmployeesList } from './screens/employees-list';
+
 import reportWebVitals from './reportWebVitals';
 
 const composedEnhancer = composeWithDevTools(applyMiddleware(promiseMiddleware));
@@ -23,7 +25,7 @@ render(
 				<Switch>
 
 					<Route exact path="/">
-						<div> hebaaa hello </div>
+						<EmployeesList />
 					</Route>
 
 					<Route path="/404" component={My404Component} />

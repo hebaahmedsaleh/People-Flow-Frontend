@@ -32,17 +32,17 @@ const employeesReducer: any = (
     case `${FETCH_EMPLOYEES}_${ActionType.Fulfilled}`:
       return {
         loading: false,
-        employees: action.payload.data,
+        employees: action.payload,
         error: null,
       };
 
-    case `${UPDATE_EMPLOYEE}_${ActionType.Fulfilled}`: {
+    case `${UPDATE_EMPLOYEE}_${ActionType.Fulfilled}`: {      
       return {
         ...state,
         loading: false,
         employees: {
           ...state.employees,
-          ...action.payload.data,
+          [action.payload.id]: action.payload,
         },
       };
     }
